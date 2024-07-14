@@ -3,5 +3,9 @@ export default {
     project: {
         link: "https://github.com/shuding/nextra",
     },
-    // ... other theme options
+    head: (
+        <>
+            <meta name="robots" content="noindex, nofollow, noarchive" />
+        </>
+    ),
 };

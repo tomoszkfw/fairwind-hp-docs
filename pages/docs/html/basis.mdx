@@ -1,0 +1,84 @@
+import { Callout } from "nextra/components";
+
+# HTML の基礎
+
+早速ですが、HTML の基礎に入ってみたいと思います。まだ初回なので、そんなに難しいことはしません。安心していてください。
+
+## HTML ファイルを作る
+
+まず、HTML のファイルを作りましょう。エクスプローラー（初期設定では左側に並んでいるタブのうち最も上）に、マウスを合わせると「新しいファイル…」と表示されるボタンがあると思うのでそれを押し、出てくる入力欄に `index.html` と入力してください。入力できたらエンターキーを押してください。
+
+<Callout>
+    `index.html` は、 Web
+    サイトを作る上では特殊なファイル名としてよく登場します。ここでも通例にのっとって
+    `index.html` という名前のファイルを作成してもらいましたが、単に HTML
+    ファイルを作るだけであれば、ファイルの名前の末尾（ **拡張子** ）が `.html`
+    となっていれば問題ありません。
+</Callout>
+
+## HTML のひな形を作る
+
+HTML にはある程度呪文と言えるような、毎回書くお決まりのコードがあります。それを毎回手書きするのってめんどくさくないですか？
+ということで、VS Code の力を借りましょう。さっき作った `index.html` に `!` または `html:5` と入力してエンターキーを押してみましょう。すると、次のように表示されるのではないでしょうか。
+
+```html filename="index.html"
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body></body>
+</html>
+```
+
+<Callout type="info">
+    設定によっては `lang="en"{:html}` となるかもしれません。その場合は `lang="ja"{:html}` に書き換えてください。
+</Callout>
+
+魔法のように思えるかもしれませんが、これは **Emmet 省略記法** と呼ばれるものです。あとで `<ul>{:html}` タグなどを利用するときにも絶大な威力を発揮します。
+
+<Callout>
+    興味がある人は [Qiita
+    に投稿されている記事](https://qiita.com/yutaka_pg/items/1edcc1135d4a7426d388)
+    や [Zenn
+    に投稿されている記事](https://zenn.dev/miz_dev/articles/6cac5f2e32398d)
+    を読んでみても良いと思います。
+</Callout>
+
+## HTML で Hello, World!
+
+プログラミングなどでは、最初に `Hello, World!` と出力させるのがお決まりだったりします。
+授業などでもよく用いられる Python ではこんな感じですね。
+
+```zsh
+>>> print("Hello, World!")
+>>> Hello, World!
+```
+
+これを HTML でもやってみましょう。
+先ほど作ったひな形の `<body>` と `</body>` の間に `<p>Hello, World</p>{:html}` と入力してみてください。そして、ブラウザで開いてみましょう。
+`Command（⌘）+ O` （ Mac の場合 ） / `Ctrl + O` （ Windows の場合 ） で今作ったファイルを開いてみてください。画面の左上に `Hello, World!` と表示されていれば成功です。
+
+## HTML とは？
+
+そもそも HTML って何だろう？と思っていた人もいるのではないでしょうか。ここで一旦 HTML とは何かについて考えてみましょう。
+
+HTML は **H**yper**T**ext **M**arkup **L**anguage の略で、Web サイトの構造を作るために使うコードです。
+HyperText とは図表・画像・音声・動画を含むテキストデータを共有して閲覧できるシステムや、単なるテキスト
+（文字）を超えたテキストデータのことを指します。また、 Markup とは Web
+ブラウザが読み取れるタグ（目印）をつけることを指します。
+
+> 参考
+>
+> -   https://developer.mozilla.org/ja/docs/Learn/Getting_started_with_the_web/HTML_basics
+> -   https://www.sejuku.net/blog/6026
+
+ブラウザには「 **開発者ツール** 」（ブラウザによって呼称は異なります）という機能があります。`⌥ + ⌘ + I` （ Mac の場合 ） / `Ctrl + Shift + I` （ Windows の場合 ）で表示できるブラウザが多いのではないかと思いますが、それぞれが使っているブラウザに合わせて開発者ツールを開けるようにしておきましょう。
+開発者ツールを開くと次の写真のような表示になると思います。
+
+![Mac 版 Google Chrome の開発者ツールを表示させた様子](/browser_inspector.png)
+
+普段見ている Web サイトの他に、何かアルファベットが並んだ不思議なものが出てきました。このときに出てきたものこそ HTML なのです。
+開発者ツールは Web サイトを作る上では欠かせないものなのですが、CSS を学ぶときに改めて解説したいと思います。

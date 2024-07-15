@@ -1,8 +1,13 @@
+import { useRouter } from "next/router";
+
 export default {
     useNextSeoProps() {
-        return {
-            titleTemplate: "%s | FairWind HP担当 管理セクション",
-        };
+        const { asPath } = useRouter();
+        if (asPath !== "/") {
+            return {
+                titleTemplate: "%s | FairWind HP担当 管理セクション",
+            };
+        }
     },
     logo: <span>FairWind HP担当 管理セクション</span>,
     project: {

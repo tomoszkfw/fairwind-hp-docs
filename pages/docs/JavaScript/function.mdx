@@ -1,0 +1,151 @@
+import { Callout } from "nextra/components";
+
+# 関数
+
+## 処理の共通化
+
+これまで、以下のような形で JavaScript での処理を記述してきました。
+
+```js
+let price = 500;
+price = price * 1.1;
+console.log(price);
+```
+
+しかし、同様の処理を複数の値（上の例ならば `price` は商品によって異なるし、
+`* 1.1` の部分も税率が変われば変化する）に対して適用しようとする場合、これをいちいち書くのは面倒です。
+
+そこで、まとまった一連の処理を **関数** として共通化することができます。
+上の例と同様に、税抜きの価格と税率を引数にとり、税込価格を返す関数を定義してみましょう。
+
+```js
+function calculatePriceWithTax(priceWithoutTax, taxRate) {
+    return priceWithoutTax * (1 + taxRate);
+}
+```
+
+すると、さまざまな価格や税率に対して、税込価格を計算できるようになります。
+
+```js
+calculatePriceWithTax(100, 0.1); // 110
+calculatePriceWithTax(500, 0.08); // 540
+```
+
+## 関数の定義
+
+### `function` キーワード
+
+上の例で出てきたように、 `function` キーワードを用いると関数を定義できます。
+
+形式的に書くと、以下のようになります。
+
+```js
+function 関数名(引数) {
+    実行する処理;
+    return 返り値; //返り値がない関数の場合は省略
+}
+```
+
+### アロー関数
+
+**関数式** を用いて関数を定義することもできます。
+
+以下の例で、 `add1` と `add2` はほとんど等価なものとみなすことができます。
+
+```js
+function add1(a, b) {
+    return a + b;
+}
+
+const add2 = (a, b) => {
+    return a + b;
+};
+```
+
+関数式の構文は以下のようなものです。
+
+```js
+const 関数名 = (引数) => {
+    実行する処理;
+    return 返り値; //返り値がない関数の場合は省略
+};
+```
+
+`=>` を用いた記法が特徴的であり、この記号が矢印（arrow）に見えることからアロー関数と呼ばれることがあります。
+
+## 変数のスコープ
+
+関数内で宣言された変数は、関数内でのみ有効です。 変数が有効な範囲のことを、その変数の **スコープ** と呼んでいます。
+
+関数外で宣言された変数は関数内でも利用できます。
+
+```js
+let guestCount = 0;
+
+function greet() {
+    guestCount += 1;
+    document.write("あなたは" + guestCount + "人目のお客様です。");
+}
+
+greet(); // あなたは1人目のお客様です。
+greet(); // あなたは2人目のお客様です。
+```
+
+<Callout>
+    **複合代入演算子** は、計算と代入を同時に行うことができる演算子です。
+    `x += y{:js}` は、`x = x + y{:js}` という意味になります。他にも `-=` や `*=` などの演算子が定義されています。
+</Callout>
+
+<Callout type="info">
+    スコープが終わった変数は、その時点で破棄されます。以下の例を見てみましょう。
+</Callout>
+
+```js
+let outer = 0;
+
+function increment() {
+    let inner = 0;
+    outer += 1;
+    inner += 1;
+    document.write(outer); // 1 ずつ増える
+    document.write(inner); // 常に 1
+}
+
+increment();
+increment();
+```
+
+## 練習問題
+
+1 つ以上の数値が格納された配列を引数にとり、最大値を返す関数 `max` を定義してください。
+
+<Callout type="info">以下の配列をテスト用に使ってください。</Callout>
+
+```js
+const test1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const test2 = [3, 6, 8, 5, 0];
+const test3 = [-8, -7, -3, -1, -5];
+```
+
+<details>
+    <summary>解答例はこちら</summary>
+
+    解答例
+
+    ```js
+    function max(array) {
+        let maxNumber = array[0];
+        for (const number of array) {
+            if (maxNumber < number) {
+                maxNumber = number;
+            }
+        }
+        return maxNumber;
+    }
+    ```
+
+    <Callout type="info">
+        変数には **最後に代入した値しか保持されない** ことに注意しましょう。
+    </Callout>
+
+</details>

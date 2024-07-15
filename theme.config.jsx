@@ -42,6 +42,7 @@ export default {
                 sizes="192x192"
             />
             <meta name="next-size-adjust" />
+            <meta name="robots" content="noindex, nofollow, noarchive" />
         </>
     ),
     footer: {

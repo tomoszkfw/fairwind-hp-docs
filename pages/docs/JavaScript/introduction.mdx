@@ -1,0 +1,85 @@
+# JavaScript 入門
+
+## JavaScript とは
+
+皆さんはこれまで、HTML や CSS を学んできたと思います。これで基本的な Web サイトを制作することができるようになったと言って良いでしょう。
+
+しかし、普通の Web サイトは HTML や CSS だけでできているわけではありません。 **JavaScript** を用いて、動きを与えたり、データのやり取りを処理したりしていることが一般的です。
+
+**[MDN Web Docs](https://developer.mozilla.org/ja/docs/Learn/JavaScript/First_steps/What_is_JavaScript)** には以下のような記述があります。
+
+> -   HTML はマークアップ言語で、これを使ってウェブコンテンツに構造と意味を与えます。例えば段落や見出しや表を定義したり、ページに画像や動画を入れたりします。
+> -   CSS は HTML コンテンツに適用するスタイリング規則の言語です。例えば背景とフォントの色を設定したり、複数の列にコンテンツをレイアウトしたりします。
+> -   JavaScript はスクリプト言語で、動的に更新されるコンテンツを作成したり、マルチメディアを制御したり、画像をアニメーションさせたり、その他ほとんどすべてを可能にします。
+
+### 体験してみよう
+
+具体的な説明は次のページ以降でしていきますが、ここでは JavaScript がどのような働きをするのか、体験してみたいと思います。
+
+以下のようなディレクトリ構成となるように、ファイルを作成しましょう。（ `project` は任意の名前に変えて構いません。）
+
+import { FileTree } from "nextra/components";
+
+<FileTree>
+    <FileTree.Folder name="project" defaultOpen>
+        <FileTree.File name="index.html" />
+        <FileTree.File name="script.js" />
+    </FileTree.Folder>
+</FileTree>
+
+`index.html` の中には以下のように記述してください。
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script src="./script.js"></script>
+    </body>
+</html>
+```
+
+また、 `script.js` には以下のように記述します。
+
+```javascript
+document.write("Hello, World!");
+```
+
+さて、ブラウザで `index.html` を開いてみましょう。どのように表示されたでしょうか？
+
+## JavaScript の基本文法
+
+### 「文」と記法
+
+JavaScript のプログラムで、セミコロン（ `;` ）で区切られた部分を **文** と呼びます。
+
+プログラムは上から順に実行されていきます。先ほどのページで作成した `script.js` を以下のように書き換え、ブラウザで `index.html` を開き直してみましょう。
+
+```javascript
+console.log("Hello World1");
+console.log("Hello World2");
+console.log("Hello World3");
+```
+
+ブラウザの開発者ツールにはコンソールの機能が備わっており、 `console.log{:js}` を用いることでコンソールに出力することができます。
+
+### コメント
+
+JavaScript のファイル（拡張子は `.js` ）や、 `<script>{:html}` タグの中では、以下のようにしてコメントを書けます。
+
+```javascript
+// これはコメントです
+console.log("Hello World"); // これもコメントです
+```
+
+import { Callout } from "nextra/components";
+
+<Callout type="info">
+    コメントアウトの書き方は、基本的に一つ一つ覚える必要はありません。 Visual
+    Studio Code を使っている場合、`⌘` + `/` （Windows の場合は `Ctrl` + `/`
+    ）を同時に押すことによって、それぞれの言語に合わせたコメントアウトができるようになっています。
+</Callout>

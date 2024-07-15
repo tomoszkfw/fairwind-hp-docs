@@ -1,0 +1,166 @@
+# 値
+
+## 値の"種類"
+
+JavaScript 上で扱われるデータのことを **値** といいます。ここまでの章では、値として文字列（"Hello, World!"のようなもの）や数値（3 のようなもの）を扱ってきました。しかし、 JavaScript で扱われる値はこれで全てではありません。特に便利な機能を持つものがあるので、紹介します。
+
+## 論理値と演算子
+
+### 論理値
+
+まずは **論理値（boolean）** を紹介します。これは「正しい（ `true` ）か正しくない（ `false` ）か」を表す値です。ダブルクォーテーション（ `"` ）を使わずに直接 `true` (「正しい」という意味) または `false` (「正しくない」という意味) と書くことにより表現します。
+
+論理値も文字列や数値と同じように値の一種なので、変数に代入したり、計算に使ったりすることができます。
+
+### 論理演算子
+
+論理値に対して作用し、論理値を出力する **演算子** があります。
+
+各演算子の意味は次の表のとおりです。
+
+| 演算子 |    意味    |                                 詳細                                 |
+| :----: | :--------: | :------------------------------------------------------------------: |
+|  `!`   | ～ではない |            `true` ならば `false` 、 `false` ならば `true`            |
+|  `&&`  |    かつ    | 両方 `true` ならば `true` 、どちらか 1 つでも `false` ならば `false` |
+| `\|\|` |   または   | 両方 `false` ならば `false` 、どちらか 1 つでも `true` ならば `true` |
+
+以下の例で確認してみましょう。
+
+```js
+document.write(!true); // false
+document.write(true && false); // false
+document.write(true || false); // true
+```
+
+### 比較演算子
+
+2 つの値を比較して、論理値を返す演算子を **比較演算子** といいます。
+
+各演算子の意味は次の通りです。
+
+| 演算子 |    意味    |              詳細               |
+| :----: | :--------: | :-----------------------------: |
+| `===`  |   等しい   |  左辺と右辺が等しければ `true`  |
+| `!==`  | 等しくない | 左辺と右辺が等しければ `false`  |
+|  `<`   |   小なり   | 左辺が右辺より小さければ `true` |
+|  `<=`  |    以下    |   左辺が右辺以下ならば `true`   |
+|  `>`   |   大なり   | 左辺が右辺より大きければ `true` |
+|  `>=`  |    以上    |   左辺が右辺以上ならば `true`   |
+
+import { Callout } from "nextra/components";
+
+<Callout type="info">
+    上の表では「等しい」という意味の演算子として `===` を紹介しました。これは
+    **[厳密等価演算子](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Strict_equality)**
+    と呼ばれるもので、二つの値が **型まで含めて**
+    等しいかどうかを判定するものです。一方、型が等しいかどうかは無視して同じ値とみなせるかどうかを判定する演算子として
+    **[等価演算子](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Equality)**
+    （ `==` ）があります。以下の例を見てみましょう。
+</Callout>
+
+```js
+console.log(1 == 1); // true
+console.log(1 === 1); // true
+
+console.log("hello" == "hello"); // true
+console.log("hello" === "hello"); // true
+
+console.log("1" == 1); // true
+console.log("1" === 1); // false
+
+console.log(0 == false); // true
+console.log(0 === false); // false
+```
+
+## 配列
+
+JavaScript における配列は、複数の値を並べて一つにまとめた値です。`[]` で囲むことにより、配列を生成します。
+
+```js
+const studentNames = ["田中", "佐藤", "鈴木"];
+```
+
+配列の中の値を利用するには、以下のように記述します。
+
+```js
+document.write(studentNames[0]); // 田中
+```
+
+このように、括弧（ `[]` ）に囲まれた部分に数値（ **インデックス** ）を指定すると、配列の要素にアクセスできます。
+
+<Callout type="warning">
+    配列のインデックスは 0 から始まります。このため、2
+    番目の要素のインデックスは 1 で、n 番目の要素のインデックスは n - 1
+    になります。 また、長さが N の配列の最後の要素のインデックスは N - 1
+    になります。（これは多くの言語に共通する仕様で、授業でよく用いられる Python
+    も同様です。）
+</Callout>
+
+### `for 〜 of` 文
+
+`for 〜 of` 文を用いると、配列の要素を順番に取り出す処理を簡単に記述できます。
+以下のコードで確かめてみましょう。
+
+```js
+const studentNames = ["田中", "佐藤", "鈴木"];
+for (const studentName of studentNames) {
+    console.log(studentName);
+}
+```
+
+`for 〜 of` 文の構造は次の通りです。
+
+```js
+for (変数の宣言 of 配列) {
+    処理;
+}
+```
+
+配列の要素を順番に取り出し、`of` の左側に指定された変数に設定してから、内部の処理を実行していきます。
+
+### length
+
+`配列.length` という変数には、指定した配列の長さが自動的に反映されます。
+
+```js
+const studentNames = ["田中", "佐藤", "鈴木"];
+document.write(studentNames.length); // 3
+const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+document.write(numbers.length); // 10
+```
+
+### push 関数
+
+`配列.push` 関数は、指定した配列の末尾に新しい値を追加する関数です。
+
+```js
+const studentNames = ["田中", "佐藤", "鈴木"];
+studentNames.push("内藤");
+document.write(studentNames); // 田中,佐藤,鈴木,内藤
+```
+
+<Callout type="info">
+    ここでも Python と比較してみると類似性が見えてくると思います。 `配列.length`
+    は Python では `len(配列)` に、`配列.push(要素)` は Python では
+    `配列.append(要素)` に相当します。
+</Callout>
+
+## オブジェクト
+
+JavaScript で扱う値の一つに **オブジェクト** があります。オブジェクトを用いれば、これまで扱ってきたような単純な値を複数まとめて一つの値として扱うことができます。
+
+オブジェクトは以下のような形をしています。
+
+```js
+const person = { name: "田中", age: 18 };
+```
+
+<Callout type="info">
+    もし他のプログラミング言語を扱ったことのある人であれば、「辞書型」（Pythonの場合）などとして馴染みがあることでしょう。JavaScriptではより頻繁にオブジェクトを扱うことになります。
+</Callout>
+
+オブジェクトの中からある値を取り出すために、以下のように記述することができます。
+
+```js
+console.log(person.name); // 田中
+```

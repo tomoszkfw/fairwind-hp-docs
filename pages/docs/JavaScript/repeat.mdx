@@ -1,0 +1,245 @@
+# 反復
+
+## map 関数
+
+`配列.map` 関数は、引数として関数をひとつとり、配列の各要素に適用した上で、その戻り値からなる新しい配列を返します。
+以下の例を見てみましょう。
+
+```js
+const pricesWithoutTax = [100, 200, 300, 400, 500];
+const taxRate = 0.1;
+const pricesWithTax = pricesWithoutTax.map((price) => {
+    return price * (1 + taxRate);
+});
+console.log(pricesWithTax); // [110, 220, 330, 440, 550]
+```
+
+Web サイトを作成するのに応用してみましょう。
+
+```html filename="index.html"
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <ul id="peopleList"></ul>
+        <script src="./script.js"></script>
+    </body>
+</html>
+```
+
+```js filename="script.js"
+const people = [
+    { name: "田中", age: 18 },
+    { name: "鈴木", age: 23 },
+    { name: "佐藤", age: 21 },
+];
+const peopleList = document.getElementById("peopleList");
+const peopleListInner = people.map(
+    (person) => `<li>${person.name} (${person.age})</li>`
+);
+peopleList.innerHTML(
+    people.map((person) => `<li>${person.name} (${person.age})</li>`).join("")
+);
+```
+
+`index.html` をブラウザで開くと、以下のように表示されるはずです。
+
+-   田中 (18)
+-   鈴木 (23)
+-   佐藤 (21)
+
+この程度だと分かりにくいですが、 CMS (Content Management System) から得たデータを画面に表示させる時などには大いに役立ちます。
+
+CMS の出力結果は、以下のようなものです。
+
+<details>
+    <summary>CMS からの出力例</summary>
+
+    WordPress の REST API からは、以下のような出力が得られます。
+    （本来はこの何倍もの出力があるはずですが、見やすさのために表示項目を制限しています。）
+
+```json
+[
+    {
+        "id": 11199,
+        "slug": "2403-tour-notredameseishin",
+        "title": {
+            "rendered": "2024/03/27 ノートルダム清心中・高等学校 東大ツアー"
+        }
+    },
+    {
+        "id": 11093,
+        "slug": "2403-tour-yahata",
+        "title": {
+            "rendered": "2024/03/27 八幡高等学校 東大ツアー"
+        }
+    },
+    {
+        "id": 11087,
+        "slug": "2403-tour-shakairenkei",
+        "title": {
+            "rendered": "2024/03/25-26 「東大の研究室をのぞいてみよう！～多様な学生を東大に～」プログラム"
+        }
+    },
+    {
+        "id": 11126,
+        "slug": "2403-online-kokura",
+        "title": {
+            "rendered": "2024/03/19 小倉高等学校 オンライン"
+        }
+    },
+    {
+        "id": 11022,
+        "slug": "2403-online-oshima",
+        "title": {
+            "rendered": "2024/03/18 大島高等学校 オンライン"
+        }
+    },
+    {
+        "id": 11039,
+        "slug": "2403-hybrid-iwakuni",
+        "title": {
+            "rendered": "2024/03/15 岩国高等学校 地方出張セミナー"
+        }
+    },
+    {
+        "id": 10969,
+        "slug": "2403-tour-sendaidaisan",
+        "title": {
+            "rendered": "2024/03/08 仙台第三高等学校 東大ツアー"
+        }
+    },
+    {
+        "id": 10925,
+        "slug": "2403-hybrid-harunogakko",
+        "title": {
+            "rendered": "2024/03/02~03 春の学校 出張セミナー"
+        }
+    },
+    {
+        "id": 10904,
+        "slug": "kyoshitsu-hongo-2024",
+        "title": {
+            "rendered": "【2024最新】東大二次試験の教室 理系編【本郷キャンパス】"
+        }
+    },
+    {
+        "id": 10884,
+        "slug": "kyoshitsu-komaba-2024",
+        "title": {
+            "rendered": "【2024最新】東大二次試験の教室 文系編【駒場キャンパス】"
+        }
+    },
+    {
+        "id": 10950,
+        "slug": "2402-online-takada",
+        "title": {
+            "rendered": "2024/02/20 高田高等学校 オンライン"
+        }
+    },
+    {
+        "id": 10805,
+        "slug": "2312-hybrid-isahaya",
+        "title": {
+            "rendered": "2023/12/28 諫早高等学校・附属中学校 地方出張セミナー"
+        }
+    },
+    {
+        "id": 10777,
+        "slug": "2312-tour-goshogawara",
+        "title": {
+            "rendered": "2023/12/23 五所川原高等学校 東大ツアー"
+        }
+    },
+    {
+        "id": 10670,
+        "slug": "2312-tour-johnouchi",
+        "title": {
+            "rendered": "2023/12/23 城ノ内中等教育学校 東大ツアー"
+        }
+    },
+    {
+        "id": 10712,
+        "slug": "2312-online-marugame",
+        "title": {
+            "rendered": "2023/12/17 丸亀高等学校 オンライン"
+        }
+    },
+    {
+        "id": 10594,
+        "slug": "2312-tour-fujiedahigashi",
+        "title": {
+            "rendered": "2023/12/10 藤枝東高等学校 東大ツアー"
+        }
+    },
+    {
+        "id": 10615,
+        "slug": "2312-online-yashiro",
+        "title": {
+            "rendered": "2023/12/09 屋代高等学校 オンライン"
+        }
+    },
+    {
+        "id": 10572,
+        "slug": "2312-tour-akitaminami",
+        "title": {
+            "rendered": "2023/12/03 秋田南高等学校・中等部 東大ツアー"
+        }
+    },
+    {
+        "id": 10496,
+        "slug": "study-choose-university",
+        "title": {
+            "rendered": "【東大生に聞く】志望校・併願校の選び方【大学受験】"
+        }
+    },
+    {
+        "id": 10891,
+        "slug": "2311-tour-joso",
+        "title": {
+            "rendered": "2023/11/18 常総学院高等学校ツアー"
+        }
+    },
+    {
+        "id": 10501,
+        "slug": "study-jukuyobiko-hitsuyo",
+        "title": {
+            "rendered": "東大合格に塾・予備校は必要？ 現役東大生に聞いてみた！"
+        }
+    },
+    {
+        "id": 10522,
+        "slug": "2310-tour-sundaikofu",
+        "title": {
+            "rendered": "2023/10/28 駿台甲府中学校 東大ツアー"
+        }
+    },
+    {
+        "id": 10625,
+        "slug": "2310-tour-sundaikofu-hs",
+        "title": {
+            "rendered": "2023/10/07 駿台甲府高等学校 東大ツアー"
+        }
+    },
+    {
+        "id": 10457,
+        "slug": "2310-trip-matsumotofukashi",
+        "title": {
+            "rendered": "2023/10/07 長野県松本深志高等学校 出張セミナー"
+        }
+    },
+    {
+        "id": 10310,
+        "slug": "agriculture-recommendation",
+        "title": {
+            "rendered": "興味を探した先に～農学部推薦入試を経て～"
+        }
+    }
+]
+```
+
+</details>

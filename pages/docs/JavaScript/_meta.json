@@ -1,0 +1,17 @@
+{
+    "introduction": {
+        "title": "JavaScript 入門"
+    },
+    "variables": {
+        "title": "変数"
+    },
+    "value": {
+        "title": "値"
+    },
+    "function": {
+        "title": "関数"
+    },
+    "condition": {
+        "title": "条件"
+    }
+}

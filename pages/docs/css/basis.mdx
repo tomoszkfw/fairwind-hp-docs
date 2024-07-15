@@ -1,0 +1,125 @@
+import { Callout } from "nextra/components";
+
+# CSS の基礎
+
+## CSS とは？
+
+前回、「色や見た目を変化させるのに使うのが CSS（**C**ascading **S**tyle **S**heet）です。」と紹介していたと思います。正直 CSS に対する理解はそれくらいで良いと思うのですが（実際自分もそれ以上理解しているかと言われると……）、[こちら](https://developer.mozilla.org/ja/docs/Web/CSS/Cascade)に CSS の「カスケード」って何？という話が書いてあります。読んでみても良いでしょう。
+
+## CSS の文法
+
+CSS も一つの言語のようなものなので、文法をもっています。形式的に書くと、以下のようになります。
+
+```css
+セレクター {
+    プロパティー 1: プロパティー値 1;
+    プロパティー 2: プロパティー値 2;
+    ......
+}
+```
+
+ここでいうセレクターやプロパティー、プロパティー値は無限にある（と言っても過言ではないと思う）ので、適当にググりましょう。「CSS 〜〜 チートシート」とかで検索するとそれっぽいものが出てきたりします。また、（確実に正統派ではないですが、）後述する [Tailwind CSS](https://tailwindcss.com/) の Docs を見ると、どんなものが使われているかわかりやすいと思います。ちなみに、Tailwind CSS にも[チートシート](https://tailwindcomponents.com/cheatsheet/)が存在します。
+
+## 練習問題
+
+以下のような HTML を考える。
+
+```html
+<span>装飾してみよう1</span>
+<div>装飾してみよう2</div>
+<span class="group">装飾してみよう3</span>
+<span class="group">装飾してみよう4</span>
+<div id="identification">装飾してみよう5</div>
+<div>
+    <span>装飾してみよう6</span>
+    <span>装飾してみよう7</span>
+    <div>装飾してみよう8</div>
+    <div>装飾してみよう9</div>
+    <div>
+        <div>装飾してみよう10</div>
+    </div>
+</div>
+```
+
+このとき、
+
+1. すべての`<span>{:html}`要素にスタイルを適用してみましょう
+1. すべての`<div>{:html}`要素にスタイルを適用してみましょう
+1. `group` というクラスをもつすべての要素にスタイルを適用してみましょう
+1. `identification` という id をもつ要素にスタイルを適用してみましょう
+1. `<div>{:html}`要素の中にあるすべての`<div>{:html}`要素にスタイルを適用してみましょう
+1. `<div>{:html}`要素の中にあるすべての要素にスタイルを適用してみましょう
+1. `<div>{:html}`要素のすべての子要素（**孫要素は除く**）にスタイルを適用してみましょう
+1. `<span>{:html}`要素の直後にある`<div>{:html}`要素にスタイルを適用してみましょう
+1. すべての要素にスタイルを適用してみましょう
+1. `group` というクラスをもたないすべての`<div>{:html}`要素にスタイルを適用してみましょう
+
+<details>
+<summary>練習問題の解答例</summary>
+
+```css
+/* 1. すべての<span>要素 */
+span {
+    color: red;
+}
+/* 2. すべての<div>要素 */
+div {
+    color: red;
+}
+/* 3. groupというクラスをもつすべての要素 */
+.group {
+    color: red;
+}
+/* 4. identificationというidをもつ要素 */
+#identification {
+    color: red;
+}
+/* 5. <div>要素の中にあるすべての<div>要素 */
+div div {
+    color: red;
+}
+/* 6. <div>要素の中にあるすべての要素 */
+div * {
+    color: red;
+}
+/* 7. <div>要素の子要素である<div>要素（孫要素は除く） */
+div > div {
+    color: red;
+}
+/* 8. <span>要素の直後にある<div>要素 */
+span + div {
+    color: red;
+}
+/* 9. すべての要素 */
+* {
+    color: red;
+}
+/* 10. groupというクラスをもたないすべての<div>要素 */
+div:not(.group) {
+    color: red;
+}
+```
+
+</details>
+
+## CSS を書くところ
+
+CSS を書くことができる場所は 3 通りあります。
+
+1. HTML タグの中に `style` 属性として書く
+    - `<div style="background-color: red">{:html}`のように書く方法です。
+    - 利点 : 一つの要素だけに style を適用できる。他の書き方より優先される。
+    - 欠点 : コードが煩雑になる。同じ style を使い回すのには不向き。
+1. `head{:html}`要素の中に書く
+    - `<head>{:html}`〜`</head>{:html}`の間に`<style>{:html}`〜`</style>{:html}`と書き、その間に書く方法です。
+    - 利点 : 一つのファイルで管理でき、小規模なサイトなら楽。同じ style の使い回しもできる。
+    - 欠点 : 一つのファイルなので長くなりやすく、管理が面倒。
+1. 別のファイルに書く
+    - `*.css` というファイルを作り、それを`head`要素の中で `<link rel="stylesheet" href="*.css" />{:html}` のように読み込む方法です。
+    - 利点 : 同じ style を複数ページに渡って使いまわせる。
+    - 欠点 : ファイルが増えるので、慣れていないと難しく見える。
+
+<Callout>
+    1.の方法はあまり推奨されておらず（入力すると VS Code
+    に注意されるはずです）、今回も 2. または 3. の方法で進めていきます。
+</Callout>

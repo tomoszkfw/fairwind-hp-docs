@@ -1,3 +1,17 @@
-# Welcome to Nextra
+import { Card, Cards } from "nextra/components";
+import { CSS, HTML, JavaScript, NextJS } from "../components/icon";
 
-Hello, world!
+# FairWind HP 担当 管理セクション
+
+本サイトでは、FairWind HP 担当 管理セクションで行われる講習内容をわかりやすくまとめることを目標としています。
+
+<Cards>
+    <Card icon={<HTML />} title="HTML" href="/docs/html/basis" />
+    <Card icon={<CSS />} title="CSS" href="/docs/css/basis" />
+    <Card
+        icon={<JavaScript />}
+        title="JavaScript"
+        href="/docs/JavaScript/introduction"
+    />
+    <Card icon={<NextJS />} title="Next.js" href="/docs/nextjs" />
+</Cards>

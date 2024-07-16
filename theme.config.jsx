@@ -50,6 +50,9 @@ export default {
             <meta name="robots" content="noindex, nofollow, noarchive" />
         </>
     ),
+    toc: {
+        backToTop: true,
+    },
     footer: {
         text: (
             <span>

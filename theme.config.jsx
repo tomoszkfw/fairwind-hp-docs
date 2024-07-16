@@ -39,7 +39,7 @@ export default {
             <meta name="twitter:image:type" content="image/png" />
             <meta name="twitter:image:width" content="1920" />
             <meta name="twitter:image:height" content="1080" />
-            <meta name="twitter:image" content="/twitter-image.jpegs" />
+            <meta name="twitter:image" content="/twitter-image.jpeg" />
             <link
                 rel="icon"
                 href="/favicon.ico"

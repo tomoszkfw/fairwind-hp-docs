@@ -1,17 +1,200 @@
+import { Callout } from "nextra/components";
+
 # CSS による配置
 
 CSS を学ぶ上での一つの目玉として、各 HTML 要素をどのように配置するか、という問題を取り上げます。とても大事だけど、思ったようにいかないことも多いので、色々試しながら進んでいってください。
 
+## CSS ボックスモデル
+
+まず、 **CSS ボックスモデル** という概念を紹介します。ブラウザの開発者ツールを開いてみましょう。
+
+<Callout type="info">
+ここで、ブラウザの開発者ツールの開き方をおさらいしておきましょう。開発者ツールを開くには、以下のキーを操作すれば良いのでした。
+
+-   Windows : `Ctrl` + `Shift` + `I` または `F12`
+-   macOS : `command` + `option` + `I`
+
+また、画面操作によって開く方法もありますが、ブラウザごとの差が大きいため割愛します。詳しくは使っているブラウザに合わせて、自分で調べてみてください。
+
+</Callout>
+
+すると、以下のように表示されると思います。
+
+![mac 版 Safari の開発者ツールでボックスモデルを表示した様子](/browser_inspector_box-model.png)
+
+右下の図では、 それぞれの HTML 要素に
+
+-   要素のサイズ
+-   padding
+-   border
+-   margin
+
+があるのが示されています。 padding と margin 、 border について詳しくみてみましょう。
+
+### padding
+
+パディングは境界とコンテンツ領域の間に位置し、 **コンテンツを境界から離す** ために使用します。
+
+マージンとは異なり、負のパディングを指定することはできません。パディングの部分には、コンテンツと同じ背景が表示されます。
+
+以下のように設定することができます。
+
+```css
+/* 例 1 : 4 辺の padding を等しくする場合 */
+.box {
+    padding: 20px;
+}
+
+/* 例 2 : 上下・左右で padding を違う値にする場合 */
+.box {
+    /* 上下 | 左右 */
+    padding: 10px 20px;
+}
+
+/* 例 3 : 4 辺それぞれに padding を設定する場合 */
+.box {
+    /* 上 | 右 | 下 | 左 */
+    padding: 1rem 20px 0 auto;
+}
+```
+
+<Callout>
+padding を設定するには、以下の例のように `padding-top` プロパティなど、 4 辺別々のプロパティを用いることもできます。
+    <details>
+        <summary>4 辺別々のプロパティを用いる例</summary>
+
+        ```css
+        .box {
+            padding-top: -40px;
+            padding-right: 30px;
+            padding-bottom: 40px;
+            padding-left: 4em;
+        }
+        ```
+
+    </details>
+
+</Callout>
+
+### margin
+
+margin とは、ボックスの周りに「見えない空間」を設けるようなものです。 つまり、 **他の要素を遠ざける** 効果があるということです。
+
+margin の値は正でも負でもよく、ある要素に負のマージンを設定すると、ページ上の他の部分と重ねる表示を実現できたりします。
+
+以下のように設定することができます。
+
+```css
+/* 例 1 : 4 辺の margin を等しくする場合 */
+.box {
+    margin: 20px;
+}
+
+/* 例 2 : 上下・左右で margin を違う値にする場合 */
+.box {
+    /* 上下 | 左右 */
+    margin: 10px 20px;
+}
+
+/* 例 3 : 4 辺それぞれに margin を設定する場合 */
+.box {
+    /* 上 | 右 | 下 | 左 */
+    margin: 1rem 20px 0 auto;
+}
+```
+
+<Callout>
+margin を設定するには、以下の例のように `margin-top` プロパティなど、 4 辺別々のプロパティを用いることもできます。
+    <details>
+        <summary>4 辺別々のプロパティを用いる例</summary>
+
+        ```css
+        .box {
+            margin-top: -40px;
+            margin-right: 30px;
+            margin-bottom: 40px;
+            margin-left: 4em;
+        }
+        ```
+
+    </details>
+
+</Callout>
+
+### border
+
+border (境界) は、ボックスの margin と padding の間に描かれる **境界線** です。以下のように設定することができます。
+
+```css
+.border {
+    /* 幅 | スタイル | 色 */
+    border: 2px solid #0693e3;
+}
+```
+
+<Callout type="info">
+border の設定には、実現したい表示に応じてさまざまなプロパティを用いることができます。
+
+<details>
+    <summary>その他の border の設定</summary>
+
+    それぞれの辺のプロパティを個別に設定するには、以下のプロパティを使用します。
+
+    - `border-top`
+    - `border-right`
+    - `border-bottom`
+    - `border-left`
+
+    すべての辺の幅、スタイル、色を設定するには、以下のプロパティを使用します。
+
+    - `border-width`
+    - `border-style`
+    - `border-color`
+
+    単一の辺の幅、スタイル、色を設定するには、より詳細な以下の個別指定プロパティのいずれかを使用します。
+
+    - `border-top-width`
+    - `border-top-style`
+    - `border-top-color`
+    - `border-right-width`
+    - `border-right-style`
+    - `border-right-color`
+    - `border-bottom-width`
+    - `border-bottom-style`
+    - `border-bottom-color`
+    - `border-left-width`
+    - `border-left-style`
+    - `border-left-color`
+
+以下に例を示します。
+
+```css filename="CSS"
+.container {
+    border-top: 5px dotted green;
+    border-right: 1px solid black;
+    border-bottom: 20px double rgb(23 45 145);
+}
+
+.box {
+    border: 1px solid #333333;
+    border-top-style: dotted;
+    border-right-width: 20px;
+    border-bottom-color: hotpink;
+}
+```
+
+```html filename="HTML"
+<div class="container">
+    <div class="box">Change my borders.</div>
+</div>
+```
+
+</details>
+</Callout>
+
 ## position プロパティ
 
 CSS で要素を配置するためには、`position` プロパティーを利用することになります。ここで詳しく説明を書いても良いのですが、今回は[こちらのサイト](https://saruwakakun.com/html-css/basic/relative-absolute-fixed)に譲りたいと思います。
-
-## padding と margin
-
-また、配置を握る重要な要素として、 padding と margin があります。次の写真を見てみましょう。
-
-この画像でオレンジで表示されているのが margin 、緑で表示されているのが padding です。
-margin は箱の周りに「この範囲には立ち入らないでね」という余白を設けるもの、padding は箱の内側に、「これ以上外側には行かないでね」という余白を設けるものだと理解しておきましょう。
 
 ## レスポンシブデザイン
 

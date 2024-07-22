@@ -15,10 +15,7 @@ export default {
     },
     head: (
         <>
-            <meta
-                property="og:title"
-                content="FairWind HP担当 管理セクション ドキュメント"
-            />
+            <meta property="og:title" content="FairWind HP担当 管理セクション ドキュメント" />
             <meta
                 property="og:description"
                 content="FairWind HP担当 管理セクションの講習に使用するドキュメントです。"
@@ -28,10 +25,7 @@ export default {
             <meta property="og:image:height" content="1080" />
             <meta property="og:image" content="/opengraph-image.jpeg" />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta
-                name="twitter:title"
-                content="FairWind HP担当 管理セクション ドキュメント"
-            />
+            <meta name="twitter:title" content="FairWind HP担当 管理セクション ドキュメント" />
             <meta
                 name="twitter:description"
                 content="FairWind HP担当 管理セクションの講習に使用するドキュメントです。"
@@ -40,12 +34,7 @@ export default {
             <meta name="twitter:image:width" content="1920" />
             <meta name="twitter:image:height" content="1080" />
             <meta name="twitter:image" content="/twitter-image.jpeg" />
-            <link
-                rel="icon"
-                href="/favicon.ico"
-                type="image/x-icon"
-                sizes="192x192"
-            />
+            <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="192x192" />
             <meta name="next-size-adjust" />
             <meta name="robots" content="noindex, nofollow, noarchive" />
         </>
@@ -54,11 +43,6 @@ export default {
         backToTop: true,
     },
     footer: {
-        text: (
-            <span>
-                Copyright &copy; {new Date().getFullYear()} FairWind Website
-                Division
-            </span>
-        ),
+        text: <span>Copyright &copy; {new Date().getFullYear()} FairWind Website Division</span>,
     },
 };

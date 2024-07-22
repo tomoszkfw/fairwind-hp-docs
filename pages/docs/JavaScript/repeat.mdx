@@ -17,7 +17,7 @@ console.log(pricesWithTax); // [110, 220, 330, 440, 550]
 Web サイトを作成するのに応用してみましょう。
 
 ```html filename="index.html"
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
     <head>
         <meta charset="utf-8" />
@@ -38,12 +38,8 @@ const people = [
     { name: "佐藤", age: 21 },
 ];
 const peopleList = document.getElementById("peopleList");
-const peopleListInner = people.map(
-    (person) => `<li>${person.name} (${person.age})</li>`
-);
-peopleList.innerHTML(
-    people.map((person) => `<li>${person.name} (${person.age})</li>`).join("")
-);
+const peopleListInner = people.map((person) => `<li>${person.name} (${person.age})</li>`);
+peopleList.innerHTML(people.map((person) => `<li>${person.name} (${person.age})</li>`).join(""));
 ```
 
 `index.html` をブラウザで開くと、以下のように表示されるはずです。

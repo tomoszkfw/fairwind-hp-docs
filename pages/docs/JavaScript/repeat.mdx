@@ -38,8 +38,12 @@ const people = [
     { name: "佐藤", age: 21 },
 ];
 const peopleList = document.getElementById("peopleList");
-const peopleListInner = people.map((person) => `<li>${person.name} (${person.age})</li>`);
-peopleList.innerHTML(people.map((person) => `<li>${person.name} (${person.age})</li>`).join(""));
+const peopleListInner = people.map(
+    (person) => `<li>${person.name} (${person.age})</li>`
+);
+peopleList.innerHTML(
+    people.map((person) => `<li>${person.name} (${person.age})</li>`).join("")
+);
 ```
 
 `index.html` をブラウザで開くと、以下のように表示されるはずです。

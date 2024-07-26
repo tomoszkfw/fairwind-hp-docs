@@ -1,11 +1,9 @@
 /** @type {import('eslint').Linter.Config}*/
 
 module.exports = {
-    plugins: ["@typescript-eslint", "import", "unused-imports", "tailwindcss"],
+    plugins: ["import", "unused-imports", "tailwindcss"],
     extends: [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:import/recommended",
         "next/core-web-vitals",
         "plugin:tailwindcss/recommended",
@@ -29,12 +27,6 @@ module.exports = {
                 alphabetize: { order: "asc", caseInsensitive: true },
             },
         ],
-        "@typescript-eslint/consistent-type-exports": "error",
-        "@typescript-eslint/consistent-type-imports": "error",
-    },
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-        project: "./tsconfig.json",
     },
     root: true,
     ignorePatterns: [

@@ -5,20 +5,17 @@ export default {
         const { asPath } = useRouter();
         if (asPath !== "/") {
             return {
-                titleTemplate: "%s | FairWind HP担当 管理セクション",
+                titleTemplate: "%s | FairWind Website Docs",
             };
         }
     },
-    logo: <span>FairWind HP担当 管理セクション</span>,
+    logo: <span>FairWind Website Docs</span>,
     project: {
         link: "https://github.com/tomoszkfw/fairwind-hp-docs",
     },
     head: (
         <>
-            <meta
-                property="og:title"
-                content="FairWind HP担当 管理セクション ドキュメント"
-            />
+            <meta property="og:title" content="FairWind Website Docs" />
             <meta
                 property="og:description"
                 content="FairWind HP担当 管理セクションの講習に使用するドキュメントです。"
@@ -28,10 +25,7 @@ export default {
             <meta property="og:image:height" content="1080" />
             <meta property="og:image" content="/opengraph-image.jpeg" />
             <meta name="twitter:card" content="summary_large_image" />
-            <meta
-                name="twitter:title"
-                content="FairWind HP担当 管理セクション ドキュメント"
-            />
+            <meta name="twitter:title" content="FairWind Website Docs" />
             <meta
                 name="twitter:description"
                 content="FairWind HP担当 管理セクションの講習に使用するドキュメントです。"
@@ -47,6 +41,15 @@ export default {
                 sizes="192x192"
             />
             <meta name="next-size-adjust" />
+            <meta
+                property="description"
+                content="FairWind HP担当 管理セクションの講習に使用するドキュメントです。"
+            />
+            <meta property="og:site_name" content="FairWind Website Docs" />
+            <meta
+                property="og:url"
+                content="https://fairwind-hp-docs.vercel.app/"
+            />
             <meta name="robots" content="noindex, nofollow, noarchive" />
         </>
     ),

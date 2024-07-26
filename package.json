@@ -1,29 +1,38 @@
 {
-    "name": "fairwind-hp2024",
-    "version": "0.1.0",
-    "private": true,
-    "engines": {
-        "node": "^20",
-        "pnpm": "^9"
-    },
-    "scripts": {
-        "dev": "next",
-        "build": "next build",
-        "start": "next start",
-        "format": "prettier --write ."
-    },
-    "dependencies": {
-        "next": "^14.2.5",
-        "nextra": "^2.13.4",
-        "nextra-theme-docs": "^2.13.4",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "sharp": "^0.33.4"
-    },
-    "devDependencies": {
-        "autoprefixer": "^10.4.19",
-        "postcss": "^8.4.39",
-        "prettier": "3.3.3",
-        "tailwindcss": "^3.4.5"
-    }
+  "name": "fairwind-hp2024",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "^20",
+    "pnpm": "^9"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "prepare": "husky",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "next": "^14.2.5",
+    "nextra": "^2.13.4",
+    "nextra-theme-docs": "^2.13.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.5",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-tailwindcss": "^3.17.4",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "husky": "^9.1.2",
+    "lint-staged": "^15.2.7",
+    "postcss": "^8.4.39",
+    "prettier": "3.3.3",
+    "tailwindcss": "^3.4.5"
+  }
 }

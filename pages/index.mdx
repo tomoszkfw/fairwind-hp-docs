@@ -1,17 +1,41 @@
-import { Card, Cards } from "nextra/components";
+import { Callout, Steps } from "nextra/components";
 import { CSS, HTML, JavaScript, NextJS } from "../components/icon";
 
 # FairWind HP 担当 管理セクション
 
 本サイトでは、FairWind HP 担当 管理セクションで行われる講習内容をわかりやすくまとめることを目標としています。
 
-<Cards>
-    <Card icon={<HTML />} title="HTML" href="/docs/html/basis" />
-    <Card icon={<CSS />} title="CSS" href="/docs/css/basis" />
-    <Card
-        icon={<JavaScript />}
-        title="JavaScript"
-        href="/docs/JavaScript/introduction"
-    />
-    <Card icon={<NextJS />} title="Next.js" href="/docs/nextjs" />
-</Cards>
+## Contents
+
+<Steps>
+### HTML
+
+-   [HTML の基礎](/docs/html/basis)
+-   [HTML の文法](/docs/html/tags)
+-   [CSS への橋渡し](/docs/html/for_css)
+
+### CSS
+
+-   [CSS の基礎](/docs/css/basis)
+-   [CSS による配置](/docs/css/placement)
+
+### JavaScript
+
+<Callout type="info">現在作成中のページがあります。</Callout>
+
+-   [JavaScript 入門](/docs/JavaScript/introduction)
+-   [変数](/docs/JavaScript/variables)
+-   [値](/docs/JavaScript/value)
+-   [関数](/docs/JavaScript/function)
+-   [条件](/docs/JavaScript/condition)
+-   [反復](/docs/JavaScript/repeat)
+
+### React
+
+<Callout type="warning">このページは現在作成中です。</Callout>
+
+### Next.js
+
+<Callout type="warning">このページは現在作成中です。</Callout>
+
+</Steps>

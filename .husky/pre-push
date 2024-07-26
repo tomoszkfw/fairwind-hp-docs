@@ -1,0 +1,2 @@
+# protect branch and tag
+. "$(dirname -- "$0")/scripts/pre-push-protect-branch.sh"

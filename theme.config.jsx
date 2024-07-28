@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-export default {
+const themeConfig = {
     useNextSeoProps() {
         const { asPath } = useRouter();
         if (asPath !== "/") {
@@ -64,4 +64,13 @@ export default {
             </span>
         ),
     },
+    editLink: {
+        component: null,
+    },
+    feedback: {
+        content: <span>質問や編集リクエストはこちら</span>,
+        useLink: () => "https://forms.gle/34iavmnMWQCyoREg8",
+    },
 };
+
+export default themeConfig;

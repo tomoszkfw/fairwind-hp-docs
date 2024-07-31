@@ -1,0 +1,103 @@
+import { Callout } from "nextra/components";
+
+# Web サイト開発の環境構築
+
+近年 Web サイトを開発する上で、HTML と CSS だけで完結することはほとんどないと思います。
+
+フレームワークを使ってルーティングを実現したり、コンポーネントに切り分けてページ間で同じパーツを再利用したり、さまざまなことが行われます。
+
+このページでは、 Web サイトを開発する上で使うことの多い環境構築をしていきたいと思います。
+
+## Node.js
+
+このサイトでも JavaScript の利用について触れていますが、 JavaScript は何もしないとブラウザ以外では動きません。
+そこで、 [Node.js](https://nodejs.org/en) を用いてブラウザ以外でも JavaScript を動かせるようにします。
+
+Node.js は [公式サイト](https://nodejs.org/en) からダウンロードできるのですが、何かしらのバージョンマネージャーを導入しておくことをおすすめします。
+以下に割と有名な(?)ものを 2 つ挙げておくので、どちらでも良い方を選んでください。
+
+-   [nvm](https://github.com/nvm-sh/nvm)
+-   [Volta](https://volta.sh)
+
+<Callout type="info">
+    インストール方法については詳述しませんが、それぞれの Web
+    ページに記載されているものに従ってください。
+</Callout>
+
+バージョンマネージャーをインストールしたら、 Node.js 本体をインストールします。
+
+nvm を使っている場合は以下のコマンドを実行してください。
+
+```sh
+nvm install node
+```
+
+また、 Volta を使っている場合は以下のコマンドを実行してください。
+
+```sh
+volta install node
+```
+
+できたら、ちゃんとインストールされているかどうか確認しましょう。以下のコマンドを実行してみてください。
+
+```sh
+node --version
+```
+
+`v20.15.0` などのように表示されていればインストールは成功です。
+
+<Callout>
+    これ以降、インストールされているかどうかを確認するときにバージョンを表示させることがよくあります。
+</Callout>
+
+## pnpm のインストール
+
+Node.js をインストールすると、パッケージを管理するための npm もインストールされるはずです。以下のコマンドで確認してみましょう。
+
+```sh
+npm --version
+```
+
+これでパッケージ（詳しくは使っているうちにわかると思います）を使うことはできるのですが、 npm には若干不便な点があります。
+
+そこで、 [pnpm](https://pnpm.io/ja/) を導入します。インストールに関しては [こちらのページ](https://pnpm.io/ja/installation) を参照してください。
+
+<Callout type="info">
+    pnpm が優れている点としては、
+
+    - 動作が高速
+    - PC の容量を節約できる
+    - バージョン管理が厳格
+
+    などがあります。
+
+</Callout>
+
+これもインストールできたかどうか確認してみましょう。
+
+```sh
+pnpm --version
+```
+
+## Svelte・SvelteKit を利用した開発
+
+```sh
+pnpm create svelte@latest [my-app]
+cd [my-app]
+pnpm install
+pnpm dev
+```
+
+## React・Next.js を利用した開発
+
+```sh
+pnpm create next-app@latest [my-app]
+What is your project named? my-app
+Would you like to use TypeScript? No / Yes
+Would you like to use ESLint? No / Yes
+Would you like to use Tailwind CSS? No / Yes
+Would you like to use `src/` directory? No / Yes
+Would you like to use App Router? (recommended) No / Yes
+Would you like to customize the default import alias (@/*)? No / Yes
+What import alias would you like configured? @/*
+```

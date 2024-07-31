@@ -1,0 +1,77 @@
+import { Callout } from "nextra/components";
+
+# HTML・CSS の環境構築
+
+このページでは、HTML・CSS を書いていく上で必要な環境構築について説明したいと思います。
+
+HTML や CSS を書く上では、$\LaTeX$などと違って面倒な環境構築は基本的に不要です。
+しかし、快適に開発を進めていく上では、「良い」 **エディタ** を使ったほうが良いでしょう。
+
+ここでは、 [Visual Studio Code](https://code.visualstudio.com) （以下 VS Code）を使うための準備について少し説明します。
+
+## VS Code のインストール
+
+https://code.visualstudio.com にアクセスすると、一番上にダウンロードボタンが表示されると思います。
+
+![VS Code のウェブサイト](/vscode_website.png)
+
+基本的には使っている端末に合わせたバージョンがインストールされるはずですが、一応確認してからダウンロードしましょう。
+
+<Callout>
+    うまくいかなかったという場合は
+    [ダウンロードページ](https://code.visualstudio.com/Download)
+    から自分で選ぶこともできます。
+</Callout>
+
+## 拡張機能のインストール
+
+VS Code はそれ自体でもテキストエディタとして使えるのですが、 **拡張機能** をインストールすることによって何倍も便利になります。
+
+ここでは、 HTML や CSS の開発をする上で筆者が個人的に使っている拡張機能を紹介します。
+
+<Callout>
+    他に便利そうな拡張機能があればインストールしておいても良いでしょう。
+</Callout>
+
+-   [Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
+    -   VS Code はデフォルトでは英語表記なので、日本語にしたいという方はインストールしておくと良いでしょう。
+    -   たまにご機嫌ななめなときがあり、 VS Code の画面が英語になることがあるので、拡張機能を入れたとしても英語学習は大切です（？）
+-   [indent-rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
+    -   HTML ではタグを入れ子にしてたくさん使います。そのときにコードを見やすくするため、階層ごとにインデントすることが多いのですが、どの階層のコードを書いているのかわからなくなることがあります。
+        -   特に、一部のタグを除き開始タグと終了タグは対応させる必要があるのですが、「あれ、このタグ閉じたっけ？」ということが起こりやすいと思います。（自分もかなり頻繁にやらかします。）
+    -   この拡張機能を入れるとインデントが色分けされるので、どの階層にいるのかが見やすくなります。
+-   [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)
+    -   誤りと思われる箇所があるとき、VS Code のデフォルトではその箇所の下に波線が引かれ、そこをホバーする（カーソルを合わせる）と詳しい説明が出ます。でも、いちいちホバーするのって手間じゃないですか？
+    -   そこで、この拡張機能の出番です。この拡張機能によって、同一の画面上にどこが間違っているかを示してくれるようになります。
+-   [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+    -   拡張機能の名前の通り、フォーマットを整えてくれる拡張機能です。かなり幅広い言語に対応しているところもすごいですね。
+    -   一般に Web サイトは一人だけで作れるものではなく、他の人にコードを見てもらう機会があると思うので、チームでコードのスタイルを合わせることなどにも重宝します。
+-   [HTMLHint](https://marketplace.visualstudio.com/items?itemName=HTMLHint.vscode-htmlhint)
+    -   HTML の文法上の誤りなどを指摘してくれます。
+-   [HTML CSS Support](https://marketplace.visualstudio.com/items?itemName=ecmel.vscode-html-css)
+    -   HTML と CSS の間で class や id を補完してくれます。
+-   [CSS Peek](https://marketplace.visualstudio.com/items?itemName=pranaygp.vscode-css-peek)
+    -   HTML の要素に対応する CSS を表示してくれます。
+-   [Live Preview](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server)
+    -   HTML のプレビューを VS Code 内で表示してくれます。
+    -   いちいちブラウザを開いたり、ブラウザと VS Code を 2 画面にしたりせずに済むので楽です。
+
+## ワークスペースを設定する
+
+VS Code には「ワークスペース」という概念があります。勉強机のようなものだと思ってもらえればいいと思います。以下の手順に従って設定しましょう。
+
+1. 左側に 5 つ並んでいるタブのうち、最も上の「エクスプローラー」をクリック
+1. 「フォルダーを開く」をクリック
+1. 適当なフォルダーを選択
+    - FairWind 用のフォルダを作っておくとごちゃごちゃせずに済んで嬉しいと思います
+
+<Callout type="info">
+    **ワークスペースって何？**
+
+    例えば、ある机の上で情報の課題をするとします。ところが、ある程度終わって区切りが良くなったので線型代数の演習問題を解きたくなりました。このとき、もとの机を片付けても良いのですが、新たな机を準備して、そこでやった方が楽です。なぜならば、まっさらな机で演習問題を解くことができる上に、再び情報の課題をやりたくなったら、もとの机に戻れば参考資料等がそのまま広がっているからです。
+
+    これと同様に、Visual Studio Code
+    でもワークスペースを保存することで、次にそのワークスペースを開いたときに、同じファイルを開いた状態から作業を再開することができます。ワークスペースは
+    `.code-workspace` の形式で保存されます。
+
+</Callout>

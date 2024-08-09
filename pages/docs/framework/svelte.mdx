@@ -227,4 +227,103 @@ SvelteKit では、`src/routes` ディレクトリにファイルを作成する
 
 をそれぞれ作成することができます。
 
-`+page.svelte` というファイル名は規定のもので、任意の名前に変更してはいけません。
+<Callout type="warning">
+    `+page.svelte`
+    というファイル名は規定のもので、任意の名前に変更してはいけません。
+</Callout>
+
+## Advanced
+
+### Tailwind CSS と `+layout.svelte`
+
+先ほど、 `+page.svelte` というファイル名が規定のものであることを紹介しましたが、 SvelteKit を使う上では他にも規定のファイル名が存在します。
+
+`+layout.svelte` は多くのページに共通して適用されるレイアウトを記述するファイルです。例えば、先ほど示した例のところから
+`src/routes` に `+layout.svelte` を追加したとします。
+
+<FileTree>
+    <FileTree.Folder name="src" defaultOpen>
+        <FileTree.Folder name="routes" defaultOpen>
+            <FileTree.File name="+page.svelte" />
+            <FileTree.File name="+layout.svelte" />
+            <FileTree.Folder name="about" defaultOpen>
+                <FileTree.File name="+page.svelte" />
+            </FileTree.Folder>
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+すると、 `+layout.svelte` に記述されたスタイルなどの情報は `/` にアクセスした際も、 `/about` にアクセスした際も
+使われることになります。
+
+今回はこれを利用して、 [Tailwind CSS](https://tailwindcss.com) を導入してみましょう。
+
+まずは Tailwind CSS をインストールします。以下のようにインストールすることができます。
+
+```sh npm2yarn
+npm install -D tailwindcss postcss autoprefixer
+```
+
+次に、以下のコマンドを実行して Tailwind CSS を使えるようにしましょう。
+
+```sh filename="npm を利用してインストールした場合"
+npx tailwindcss init -p
+```
+
+```sh filename="pnpm を利用してインストールした場合"
+pnpm exec tailwindcss init -p
+```
+
+さらに、 `tailwind.config.js` というファイルを以下のようにしてください。
+
+```js {3}
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: ["./src/**/*.{html,js,svelte,ts}"],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+};
+```
+
+次に、 `app.css` を `src` の中に作ってください。以下のような構成になれば大丈夫です。
+
+<FileTree>
+    <FileTree.Folder name="src" defaultOpen>
+        <FileTree.Folder name="routes" defaultOpen>
+            <FileTree.File name="+page.svelte" />
+            <FileTree.File name="+layout.svelte" />
+            <FileTree.File name="app.css" />
+            <FileTree.Folder name="about" defaultOpen>
+                <FileTree.File name="+page.svelte" />
+            </FileTree.Folder>
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+そして、 `app.css` に以下のように記述します。
+
+```css filename="app.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+最後に、 `+layout.svelte` に以下のように記述します。
+
+```svelte filename="+layout.svelte"
+<script>
+    import "../app.css";
+</script>
+
+<slot />
+```
+
+これで使う準備は完了です。 `+layout.svelte` に書いた内容がその下のページ全てに適用されることにより、これでどのページでも
+Tailwind CSS を使えることになります。
+
+<Callout type="info">
+    このように `+layout.svelte` に書いた内容はその下の全てのページに適用されます。そのため、
+    `+layout.svelte` の `<style>` タグに CSS を書けばデザインを統一するといったことも可能です。
+</Callout>

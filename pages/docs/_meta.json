@@ -1,4 +1,7 @@
 {
+    "prepare": {
+        "title": "環境構築"
+    },
     "html": {
         "title": "HTML"
     },
@@ -8,7 +11,7 @@
     "JavaScript": {
         "title": "JavaScript"
     },
-    "prepare": {
-        "title": "環境構築"
+    "framework": {
+        "title": "フレームワーク"
     }
 }

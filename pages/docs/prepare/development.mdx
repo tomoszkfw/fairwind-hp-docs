@@ -44,10 +44,13 @@ volta install node
 node --version
 ```
 
-`v20.15.0` などのように表示されていればインストールは成功です。
+`v20.16.0` などのように表示されていればインストールは成功です。
 
 <Callout>
     これ以降、インストールされているかどうかを確認するときにバージョンを表示させることがよくあります。
+    基本的に `--version`
+    というオプションをつけて実行することになるので、覚えておいてもらえると良いと思います。一部のコマンドでは
+    `-v` と短縮できる場合もあります。
 </Callout>
 
 ## pnpm のインストール
@@ -79,20 +82,142 @@ npm --version
 pnpm --version
 ```
 
-## Svelte・SvelteKit を利用した開発
+## JavaScript ベースのフレームワーク
+
+ここでは Web サイトを作るのに使われるフレームワークを 2 つ紹介します。いずれも FairWind での採用事例があるものです。
+
+### Svelte・SvelteKit
+
+まず初めに紹介するのは Svelte + SvelteKit です。
+まだ歴史が浅く採用事例は多くないのですが、シンプルで学習コストが低いことや動作が軽くて速いことが魅力です。
+
+以下のようにしてインストールできます。
 
 ```sh
 pnpm create svelte@latest [my-app]
+```
+
+<Callout type="warning">
+    `[my-app]`
+    の部分は自分の好きなように変えてください。これがそのままフォルダ名になるので、区別しやすい名前にすることを推奨します。
+</Callout>
+
+実行するといろいろ聞かれると思いますが、とりあえず以下のような状態にしておいてもらえれば大丈夫だと思います。
+
+```sh
+create-svelte version 6.3.5
+
+┌  Welcome to SvelteKit!
+│
+◇  Which Svelte app template?
+│  Skeleton project
+│
+◇  Add type checking with TypeScript?
+│  Yes, using TypeScript syntax
+│
+◆  Select additional options (use arrow keys/space bar)
+│  ◼ Add ESLint for code linting
+│  ◼ Add Prettier for code formatting
+│  ◻ Add Playwright for browser testing
+│  ◻ Add Vitest for unit testing
+│  ◻ Try the Svelte 5 preview (unstable!)
+└
+```
+
+<details>
+    <summary>上で答えたことの意味</summary>
+
+    上で答えたことの意味はだいたい以下のような感じです。
+
+    - Which Svelte app template?
+        - 一番最初にどんな感じのテンプレートで表示させたいですか？って聞いています。
+        - Skeleton project にしておくとほぼまっさらな状態で表示されるのでそこからいろいろカスタマイズできます。
+    - Add type checking with TypeScript?
+        - JavaScript の変数の「型」をチェックしますか？って聞いています。
+        - TypeScript syntax を用いて型をつけることができるようにしておくと良いと思います。
+
+    ```ts filename="TypeScript の例"
+        const sum = (a: number[]) => {
+            let s: number = 0;
+            for (const item of a) {
+                s += item;
+            }
+            return s;
+        };
+    ```
+
+    - Select additional options
+        - 導入したら便利なものを最初から導入しておきましょうか？という感じの質問です。
+        - コード品質を保つために ESLint と Prettier を入れておくと良いと思います。
+
+</details>
+
+うまくいくと、こんな感じの表示が出てくると思います。
+
+```sh
+Install more integrations with:
+  npx svelte-add
+
+Next steps:
+  1: cd [my-app]
+  2: pnpm install
+  3: git init && git add -A && git commit -m "Initial commit" (optional)
+  4: pnpm run dev -- --open
+
+To close the dev server, hit Ctrl-C
+
+Stuck? Visit us at https://svelte.dev/chat
+```
+
+これに従って、以下のコマンドを順に実行します。
+
+```sh
 cd [my-app]
 pnpm install
+```
+
+インストールできたら、以下のコマンドを実行してみましょう。
+
+```sh
 pnpm dev
 ```
 
-## React・Next.js を利用した開発
+うまくいくと以下のように表示されると思います。
+
+```sh
+> [my-app]@0.0.1 dev .../[my-app]
+> vite dev
+
+
+  VITE v5.3.5  ready in 728 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+```
+
+ここに表示されている通り、 http://localhost:5173/ にアクセスしてみましょう。何が表示されているでしょうか？
+
+### React・Next.js
+
+次に紹介するのはデファクト（事実上の）スタンダードとなっている React + Next.js です。やることはほとんど同じなので安心していてください。
+
+まず、 Next.js のアプリを作成するには、以下のコマンドを実行します。
 
 ```sh
 pnpm create next-app@latest [my-app]
-What is your project named? my-app
+```
+
+こちらでも、作成するときに必要な情報をいろいろ聞かれると思います。基本的には
+
+> Would you like to customize the default import alias (@/\*)?
+
+という質問だけ No で答えれば、あとは全部 Yes でいいんじゃないかと思います。
+
+聞かれる質問は以下のようなものです。
+
+```sh
+What is your project named? [my-app]
 Would you like to use TypeScript? No / Yes
 Would you like to use ESLint? No / Yes
 Would you like to use Tailwind CSS? No / Yes
@@ -101,3 +226,9 @@ Would you like to use App Router? (recommended) No / Yes
 Would you like to customize the default import alias (@/*)? No / Yes
 What import alias would you like configured? @/*
 ```
+
+<Callout type="info">
+    JavaScript ベースのフレームワークにも Vue.js + Nuxt.js
+    など、ここに紹介しきれなかったものがあります。 また、django や Flask
+    など、Pythonベースのものからさらに他の言語を用いるものまで、多種多様なものが存在します。
+</Callout>

@@ -1,0 +1,329 @@
+import { Callout, FileTree } from "nextra/components";
+
+# Svelte を用いた Web サイト開発
+
+<Callout>
+    Svelte や SvelteKit
+    は新しいフレームワークであり、それほど広く使われていないので参考にできる資料がさほど多くありません。
+    その中で [Svelte 入門](https://zenn.dev/k_sato/books/b868c1705b8337)
+    は基本的な書き方をシンプルにまとめてくれているのでおすすめです。
+</Callout>
+
+## 開発環境について
+
+Svelte は [オンラインの実行環境](https://svelte.dev/repl/) を使用して試すことができます。
+また、 [環境構築のページ](/docs/prepare/development/) を参考に、ローカル環境で開発をすることもできます。
+
+## 基本的な構文
+
+```svelte filename="Greeting.svelte"
+<script lang="ts">
+    let name = "world";
+</script>
+
+<h1 class="greeting">Hello {name}!</h1>
+
+<style>
+    .greeting {
+        color: red;
+    }
+</style>
+```
+
+Svelte は、上の例のように 3 つの部分から構成されています。
+
+1. `<script>` タグ: JavaScript のコードを書く場所です。
+2. `<style>` タグ: CSS のコードを書く場所です。
+3. その他: HTML のコードを書く場所です。
+
+このうち、`<script>` タグと `<style>` タグは省略することができます。
+したがって、HTML さえ書ければ、Svelte でのコンポーネントの作成は可能です。
+
+このような Svelte のコンポーネントは、`.svelte` という拡張子のファイルに保存します。
+また、コンポーネントはインポート（後述）したときに HTML タグと見分けがつくようにするなどの観点から、
+**ファイル名を大文字で始める** ことになっています。
+
+### インポート
+
+Svelte では、他のコンポーネントをインポートして使用することができます。
+
+これにより、例えば、ボタンのような何度も使いまわすコンポーネントを別ファイルに分けて管理することができます。
+
+```svelte
+<script lang="ts">
+    import Button from "./Button.svelte";
+</script>
+
+<h1>Hello, world!</h1>
+<Button />
+```
+
+コンポーネントには、引数を渡すこともできます。`Button.svelte` は以下のようになっているとします。
+
+```svelte filename="Button.svelte"
+<script lang="ts">
+    export let color = "black";
+</script>
+
+<button style="color: {color}"> Submit! </button>
+```
+
+すると、ページを表示する側で以下のように引数を渡すことができるようになります。
+
+```svelte
+<script lang="ts">
+    import Button from "./Button.svelte";
+</script>
+
+<h1>Hello, world!</h1>
+<Button color="red" />
+```
+
+`export let color = "black";{:svelte}` という行で、`color` という変数を外部に公開しています。
+ここで「変数を外部に公開する」とは、他のファイルから変数を変更できるようにすることを指しています。
+
+`lang="ts"` という属性は、（JavaScript ではなく）TypeScript を使用することを示していて、これによって型を指定することができます。
+今回でいえば、`color` は文字列型であることが自動的に推論されるので、`color` に文字列以外の値を渡すとエラーになります。
+
+コンポーネントには子要素を渡すこともできます。`Button.svelte` は以下のようになっているとします。
+
+```svelte filename="Button.svelte"
+<script lang="ts">
+    export let color = "black";
+</script>
+
+<button style="color: {color}">
+    <slot />
+</button>
+```
+
+`<slot></slot>` という行は、`Button` コンポーネントの中に渡された子要素を表示するためのものです。
+`<slot/>` と書くこともできます。
+
+このとき、ページを表示する側では以下のように子要素を渡すことができます。
+
+```svelte
+<script lang="ts">
+    import Button from "./Button.svelte";
+</script>
+
+<h1>Hello, world!</h1>
+<Button>
+    <p>Submit!</p>
+</Button>
+```
+
+### CSS
+
+Svelte では、CSS を書く際に、`<style>` タグの中で変数を使用することができます。
+
+```svelte
+<script lang="ts">
+    let color = "red";
+</script>
+
+<h1 class="greeting">Hello, world!</h1>
+
+<style>
+    .greeting {
+        color: {color};
+    }
+</style>
+```
+
+このように、`color` という変数を CSS の中で使用することができます。
+
+また、コンポーネントの中に書いた CSS は、そのコンポーネントの中にしか適用されません。
+例えば、別のコンポーネントに `greeting` というクラスを使っても、それに対して `color` が適用されることはありません。
+
+しかし、この挙動は、`:global()` という擬似クラスを使うことで変更することができます。
+
+```svelte
+<script lang="ts">
+    let color = "red";
+</script>
+
+<h1 class="greeting">Hello, world!</h1>
+
+<style>
+    :global(.greeting) {
+        color: {color};
+    }
+</style>
+```
+
+`:global()` という擬似クラスを使うことで、`greeting` というクラスに対して適用される CSS を、そのコンポーネントの外にも適用することができます。
+
+### if 文
+
+Svelte では、`{#if}` という構文を使って、条件によって表示する内容を変えることができます。
+
+```svelte
+<script lang="ts">
+    const name = "太郎";
+</script>
+
+{#if name === "太郎"}
+    <p>太郎さんこんにちは</p>
+{:else if name === "次郎"}
+    <p>次郎さんこんにちは</p>
+{:else}
+    <p>あなたは誰ですか？</p>
+{/if}
+```
+
+### each 文
+
+Svelte では、`{#each}` という構文を使って、配列の要素を繰り返し表示することができます。
+
+```svelte
+<script lang="ts">
+    const siblings = [
+        { name: "太郎", age: 30 },
+        { name: "次郎", age: 28 },
+        { name: "三郎", age: 20 }
+    ];
+</script>
+
+<ul>
+    {#each siblings as sibling, i}
+        <li>{sibling.name}: {sibling.age}歳</li>
+    {/each}
+</ul>
+```
+
+`{#each}` の中で、`as` で指定した変数に、配列の要素が順番に代入されます。
+`i` は、インデックスを表しています。
+
+同じコンポーネントを違う値で複数回使いたい場合などに便利です。
+
+## SvelteKit について
+
+SvelteKit は、Svelte のフレームワークです。
+
+SvelteKit を使うことで、Svelte アプリケーションをより簡単に作成することができます。
+
+### ルーティング
+
+ルーティングとは、URL によって表示するページを変えることです。
+
+SvelteKit では、`src/routes` ディレクトリにファイルを作成することで、ルーティングを設定することができます。
+
+<FileTree>
+    <FileTree.Folder name="src" defaultOpen>
+        <FileTree.Folder name="routes" defaultOpen>
+            <FileTree.File name="+page.svelte" />
+            <FileTree.Folder name="about" defaultOpen>
+                <FileTree.File name="+page.svelte" />
+            </FileTree.Folder>
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+上の例では、
+
+-   `/` にアクセスしたときに表示されるページ
+-   `/about` にアクセスしたときに表示されるページ
+
+をそれぞれ作成することができます。
+
+<Callout type="warning">
+    `+page.svelte`
+    というファイル名は規定のもので、任意の名前に変更してはいけません。
+</Callout>
+
+## Advanced
+
+### Tailwind CSS と `+layout.svelte`
+
+先ほど、 `+page.svelte` というファイル名が規定のものであることを紹介しましたが、 SvelteKit を使う上では他にも規定のファイル名が存在します。
+
+`+layout.svelte` は多くのページに共通して適用されるレイアウトを記述するファイルです。例えば、先ほど示した例のところから
+`src/routes` に `+layout.svelte` を追加したとします。
+
+<FileTree>
+    <FileTree.Folder name="src" defaultOpen>
+        <FileTree.Folder name="routes" defaultOpen>
+            <FileTree.File name="+page.svelte" />
+            <FileTree.File name="+layout.svelte" />
+            <FileTree.Folder name="about" defaultOpen>
+                <FileTree.File name="+page.svelte" />
+            </FileTree.Folder>
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+すると、 `+layout.svelte` に記述されたスタイルなどの情報は `/` にアクセスした際も、 `/about` にアクセスした際も
+使われることになります。
+
+今回はこれを利用して、 [Tailwind CSS](https://tailwindcss.com) を導入してみましょう。
+
+まずは Tailwind CSS をインストールします。以下のようにインストールすることができます。
+
+```sh npm2yarn
+npm install -D tailwindcss postcss autoprefixer
+```
+
+次に、以下のコマンドを実行して Tailwind CSS を使えるようにしましょう。
+
+```sh filename="npm を利用してインストールした場合"
+npx tailwindcss init -p
+```
+
+```sh filename="pnpm を利用してインストールした場合"
+pnpm exec tailwindcss init -p
+```
+
+さらに、 `tailwind.config.js` というファイルを以下のようにしてください。
+
+```js {3}
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: ["./src/**/*.{html,js,svelte,ts}"],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+};
+```
+
+次に、 `app.css` を `src` の中に作ってください。以下のような構成になれば大丈夫です。
+
+<FileTree>
+    <FileTree.Folder name="src" defaultOpen>
+        <FileTree.Folder name="routes" defaultOpen>
+            <FileTree.File name="+page.svelte" />
+            <FileTree.File name="+layout.svelte" />
+            <FileTree.File name="app.css" />
+            <FileTree.Folder name="about" defaultOpen>
+                <FileTree.File name="+page.svelte" />
+            </FileTree.Folder>
+        </FileTree.Folder>
+    </FileTree.Folder>
+</FileTree>
+
+そして、 `app.css` に以下のように記述します。
+
+```css filename="app.css"
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+最後に、 `+layout.svelte` に以下のように記述します。
+
+```svelte filename="+layout.svelte"
+<script>
+    import "../app.css";
+</script>
+
+<slot />
+```
+
+これで使う準備は完了です。 `+layout.svelte` に書いた内容がその下のページ全てに適用されることにより、これでどのページでも
+Tailwind CSS を使えることになります。
+
+<Callout type="info">
+    このように `+layout.svelte` に書いた内容はその下の全てのページに適用されます。そのため、
+    `+layout.svelte` の `<style>` タグに CSS を書けばデザインを統一するといったことも可能です。
+</Callout>

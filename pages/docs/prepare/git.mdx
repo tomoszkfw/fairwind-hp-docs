@@ -1,0 +1,85 @@
+import { Callout } from "nextra/components";
+
+# Git の環境構築
+
+このページでは、バージョン管理システム「**Git**」を使うための環境構築をしていきます。
+
+やることは以下の3点です。
+-   Git のインストール
+-   Git の設定
+-   GitHub アカウントの作成
+
+## Git のインストール
+
+### Mac ユーザー
+
+Mac ユーザーは基本的に Git が入っていると思います。
+ターミナルを開き、
+```sh
+git --version
+```
+と打ち込んでバージョン情報が出てくれば既にインストールされています。
+
+「そんなコマンドないよ」って言われてしまった人はインストールしましょう。
+ここでは HomeBrew を用いてインストールする方法を書きます。
+
+```sh
+brew --version
+```
+と入力して HomeBrew のバージョン情報が出てくるでしょうか。
+
+出てこない場合は
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+と入力して HomeBrew をインストールしましょう。
+もう一度
+```sh
+brew --version
+```
+を実行してバージョンが出てくれば HomeBrew はインストールされています。
+
+<Callout type="info">
+    **HomeBrew** とは macOS のパッケージ管理ツールです。
+    コマンドラインでパッケージをインストールすることができます。
+</Callout>
+
+HomeBrew がインストールできたら Git をインストールしましょう。
+```sh
+brew install git
+```
+を実行すれば Git がインストールされます。
+
+### Windows ユーザー
+
+Windows ユーザーはデフォルトでは Git がインストールされていないと思います。
+コマンドプロンプトや Windows PowerShell を開き、
+```sh
+git --version
+```
+を実行してバージョンが出てくれば出てくれば Git はインストールされています。
+
+出てこない場合は次のコマンドを順番に実行して Git をインストールしましょう。
+```sh
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+```
+```sh
+invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+```
+```sh
+scoop install git
+```
+
+<Callout type="info">
+    上の操作は Windows 用のパッケージマネージャー Scoop を用いて Git インストールしています。
+    もしうまくいかない場合は、Git のインストーラーをダウンロードすることでも Git を入手できます。
+    [このページ](https://gitforwindows.org/)からインストーラーをダウンロードし、
+    インストーラーを実行しましょう。
+</Callout>
+
+<Callout type="info">
+    Windows ユーザーのもう一つの方法として、WSL (Windows Subsystem for Linux) を使うというものです。
+    これは Windows 上で Ubuntu などの Linux ディストリビューションを実行する機能です。
+    
+</Callout>
+## Git の設定

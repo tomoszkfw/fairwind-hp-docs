@@ -6,5 +6,9 @@
     "docs": {
         "title": "Docs",
         "type": "page"
+    },
+    "practice": {
+        "title": "練習問題",
+        "type": "page"
     }
 }

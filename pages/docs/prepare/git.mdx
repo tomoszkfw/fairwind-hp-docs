@@ -6,8 +6,8 @@ import { Callout } from "nextra/components";
 
 やることは以下の3点です。
 -   Git のインストール
--   Git の設定
 -   GitHub アカウントの作成
+-   Git の設定
 
 ## Git のインストール
 
@@ -52,6 +52,14 @@ brew install git
 
 ### Windows ユーザー
 
+<Callout type="info">
+    ここでは Windows 上で Git をインストールする方法を説明しますが、
+    Windows ユーザーのもう一つの方法として、WSL (Windows Subsystem for Linux) を使うというものがあります。
+    これは Windows 上で Ubuntu などの Linux ディストリビューションを実行する機能です。
+    これを使いたい場合は [Platform 担当のページ](https://fairwind-platform.netlify.app/environment/wsl) を参考にインストールしましょう。
+    おそらくデフォルトで Git が入っていると思うので以下の環境構築は不要です。
+</Callout>
+
 Windows ユーザーはデフォルトでは Git がインストールされていないと思います。
 コマンドプロンプトや Windows PowerShell を開き、
 ```sh
@@ -77,9 +85,18 @@ scoop install git
     インストーラーを実行しましょう。
 </Callout>
 
-<Callout type="info">
-    Windows ユーザーのもう一つの方法として、WSL (Windows Subsystem for Linux) を使うというものです。
-    これは Windows 上で Ubuntu などの Linux ディストリビューションを実行する機能です。
-    
-</Callout>
+## GitHub アカウントの作成
+複数人で共同開発する際には、ソースコードを共有する場所が必要です。
+Git を用いた共同開発では GitHub などが使われます。
+FairWind でも GitHub を用いているので、GitHub アカウントを作成しましょう。
+
+[GitHub](https://github.com/signup) にアクセスし、アカウント登録をしましょう。
+
+1. Username、Email address、Password を入力します。
+    -   Username: 何でもよいですが、本名はお勧めしません。他のユーザーと被らない名前を考えましょう。
+    -   Email address: 生涯使えるメールアドレスを入れておくとよいでしょう。なければ ECCS クラウドメールや FairWind メールアドレスで構いません。
+    -   Password: 強固なパスワードを設定しましょう。
+1. メールアドレスに確認コードが届くはずなので、認証しましょう。
+1. (optional) [GitHub Student Developer Pack](https://education.github.com/pack) を申請しましょう。有料のサービスを無料で使えるようになります。1週間弱かかるので早めにやっておくとよいです。
+
 ## Git の設定

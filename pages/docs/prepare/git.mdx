@@ -100,3 +100,22 @@ FairWind でも GitHub を用いているので、GitHub アカウントを作�
 1. (optional) [GitHub Student Developer Pack](https://education.github.com/pack) を申請しましょう。有料のサービスを無料で使えるようになります。1週間弱かかるので早めにやっておくとよいです。
 
 ## Git の設定
+### ユーザー情報の登録
+[GitHub のメール設定](https://github.com/settings/emails) で、下の方にある `Keep my email addresses private` を有効化し、
+そこに表示されているダミーのメールアドレス (`9桁の数字+ユーザー名@users.noreply.github.com`)
+をコピーまたはメモしておきます。
+
+Git が入っているターミナルを開き、次の2つのコマンドを実行しましょう。
+Enter キーを押しても何も出てきませんが大丈夫です。
+```sh
+git config --global user.name ユーザー名
+```
+```sh
+git config --global user.email メールアドレス
+```
+このメールアドレスは GitHub で表示されたダミーのメールアドレスにしてください。
+
+<Callout type="warning">
+    ダミーでないメールアドレスを登録する場合、ソースコードを GitHub で公開するとメールアドレスが公開されてしまうので注意してください。
+    スパムが大量に送られてくることになります。
+</Callout>

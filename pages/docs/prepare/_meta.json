@@ -4,5 +4,8 @@
     },
     "development": {
         "title": "Webサイト開発の環境構築"
+    },
+    "git": {
+        "title": "Git の環境構築"
     }
 }

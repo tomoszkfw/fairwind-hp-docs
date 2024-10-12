@@ -1,0 +1,212 @@
+import { Callout } from "nextra/components";
+
+# Git の環境構築
+
+このページでは、バージョン管理システム「**Git**」を使うための環境構築をしていきます。
+
+やることは以下の 3 点です。
+
+-   Git のインストール
+-   GitHub アカウントの作成
+-   Git の設定
+
+## Git のインストール
+
+### Mac ユーザー
+
+Mac ユーザーは基本的に Git が入っていると思います。
+ターミナルを開き、
+
+```sh
+git --version
+```
+
+と打ち込んでバージョン情報が出てくれば既にインストールされています。
+
+「そんなコマンドないよ」って言われてしまった人はインストールしましょう。
+ここでは HomeBrew を用いてインストールする方法を書きます。
+
+```sh
+brew --version
+```
+
+と入力して HomeBrew のバージョン情報が出てくるでしょうか。
+
+出てこない場合は
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+と入力して HomeBrew をインストールしましょう。
+もう一度
+
+```sh
+brew --version
+```
+
+を実行してバージョンが出てくれば HomeBrew はインストールされています。
+
+<Callout type="info">
+    **HomeBrew** とは macOS のパッケージ管理ツールです。
+    コマンドラインでパッケージをインストールすることができます。
+</Callout>
+
+HomeBrew がインストールできたら Git をインストールしましょう。
+
+```sh
+brew install git
+```
+
+を実行すれば Git がインストールされます。
+
+### Windows ユーザー
+
+<Callout type="info">
+    ここでは Windows 上で Git をインストールする方法を説明しますが、 Windows
+    ユーザーのもう一つの方法として、WSL（Windows Subsystem for
+    Linux）を使うというものがあります。 これは Windows 上で Ubuntu などの Linux
+    ディストリビューションを実行する機能です。 これを使いたい場合は [Platform
+    担当のページ](https://fairwind-platform.netlify.app/environment/wsl)
+    を参考にインストールしましょう。 おそらくデフォルトで Git
+    が入っていると思うので以下の環境構築は不要です。
+</Callout>
+
+Windows ユーザーはデフォルトでは Git がインストールされていないと思います。
+コマンドプロンプトや Windows PowerShell を開き、
+
+```sh
+git --version
+```
+
+を実行してバージョンが出てくれば出てくれば Git はインストールされています。
+
+出てこない場合は次のコマンドを順番に実行して Git をインストールしましょう。
+
+```sh
+Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+```
+
+```sh
+invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+```
+
+```sh
+scoop install git
+```
+
+<Callout type="info">
+    上の操作は Windows 用のパッケージマネージャー Scoop を用いて Git
+    インストールしています。 もしうまくいかない場合は、Git
+    のインストーラーをダウンロードすることでも Git を入手できます。
+    [このページ](https://gitforwindows.org/)からインストーラーをダウンロードし、
+    インストーラーを実行しましょう。
+</Callout>
+
+## GitHub アカウントの作成
+
+複数人で共同開発する際には、ソースコードを共有する場所が必要です。
+Git を用いた共同開発では GitHub などが使われます。
+FairWind でも GitHub を用いているので、GitHub アカウントを作成しましょう。
+
+[GitHub](https://github.com/signup) にアクセスし、アカウント登録をしましょう。
+
+1. Username、Email address、Password を入力します。
+    - Username: 何でもよいですが、本名はお勧めしません。他のユーザーと被らない名前を考えましょう。
+    - Email address: 生涯使えるメールアドレスを入れておくとよいでしょう。なければ ECCS クラウドメールや FairWind メールアドレスで構いません。
+    - Password: 強固なパスワードを設定しましょう。
+1. メールアドレスに確認コードが届くはずなので、認証しましょう。
+1. （optional） [GitHub Student Developer Pack](https://education.github.com/pack) を申請しましょう。有料のサービスを無料で使えるようになります。1 週間弱かかるので早めにやっておくとよいです。
+
+## Git の設定
+
+### ユーザー情報の登録
+
+[GitHub のメール設定](https://github.com/settings/emails) で、下の方にある `Keep my email addresses private` を有効化し、
+そこに表示されているダミーのメールアドレス（`9桁の数字+ユーザー名@users.noreply.github.com`）
+をコピーまたはメモしておきます。
+
+Git が入っているターミナルを開き、次の 2 つのコマンドを実行しましょう。
+Enter キーを押しても何も出てきませんが大丈夫です。
+
+```sh
+git config --global user.name ユーザー名
+```
+
+```sh
+git config --global user.email メールアドレス
+```
+
+このメールアドレスは GitHub で表示されたダミーのメールアドレスにしてください。
+
+<Callout type="warning">
+    ダミーでないメールアドレスを登録する場合、ソースコードを GitHub
+    で公開するとメールアドレスが公開されてしまうので注意してください。
+    スパムが大量に送られてくることになります。
+</Callout>
+
+### デフォルトブランチの設定
+
+ブランチについては後々学ぶことになりますが、環境などによってデフォルトのブランチが異なるため統一します。
+FairWind では `master` ではなく `main` が使われているため、`main` に統一します。
+
+次のコマンドを実行してください。
+
+```sh
+git config --global init.defaultBranch main
+```
+
+### SSH 鍵の登録
+
+ターミナルで
+
+```sh
+ls -a ~/.ssh
+```
+
+（PowerShell を使っている人は `ls -fo ~/.ssh`）を実行してください。
+
+-   `id_ed25519` や `id_ed25519.pub` が出てきた人: 鍵を生成した後まで飛んでください。
+-   `No such file or directory` などと出てきた人: 次の指示に従って鍵を作りましょう。
+-   `id_ed25519` 等ではないが何か見つかった人: 要相談
+
+鍵がない人は生成します。
+
+```sh
+cd ~
+```
+
+```sh
+ssh-keygen -t ed25519
+```
+
+を実行し、途中の入力が必要な事項はすべて Enter で飛ばして鍵を生成します。
+（セキュリティが気になる人は適切に設定すると良いと思います）。
+
+生成出来たら**公開鍵**をコピーしましょう。
+
+```sh
+cat ~/.ssh/id_ed25519.pub
+```
+
+とすると `ssh-ed25519 AAA.../MWq <ユーザー名>@<コンピュータ名>` が出力されます。
+`ssh-ed25519 AAA.../MWq` の部分のみコピーしてください。
+
+<Callout type="error">
+    `.pub`
+    をつけ忘れると秘密鍵がコピーされることになり、公開すると人生が終わるので注意してください。
+</Callout>
+
+コピーしたものを GitHub の [SSH 鍵の設定](https://github.com/settings/keys) に登録します。
+
+`New SSH key` を押し、`Title` は適当な名前を入力、`Key` にコピーしたものを貼り付けしてください。
+
+`Add SSH key` をクリックして完了したら、SSH 接続のテストをしましょう。
+
+```sh
+ssh -T git@github.com
+```
+
+と打ち込んでください。
+`Hi 名前! You've successfully authenticated, but GitHub does not provide shell access.`
+と出てくれば成功です。
